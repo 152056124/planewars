@@ -3,6 +3,7 @@ package com.nudeu.runtime;
 import com.nudeu.base.AbstractElf;
 import com.nudeu.base.Drawable;
 import com.nudeu.base.Moveable;
+import com.nudeu.constant.FrameConstant;
 import com.nudeu.until.ImageMap;
 
 import java.awt.*;
@@ -16,12 +17,12 @@ public class Background extends AbstractElf implements Moveable, Drawable {
     }
 
     public Background() {
-        this(0,0, ImageMap.getImage("bg01"));
+        this(0,FrameConstant.HEIGHT - ImageMap.getImage("bg01").getHeight(null) , ImageMap.getImage("bg01"));
     }
 
     @Override
     public void move() {
-        setY(getY() - 2);
+        setY(getY() + FrameConstant.GAME_SPEED);
     }
 
     @Override

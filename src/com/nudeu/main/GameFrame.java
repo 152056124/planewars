@@ -1,17 +1,40 @@
 package com.nudeu.main;
 
 import com.nudeu.constant.FrameConstant;
-import com.nudeu.runtime.Background;
+import com.nudeu.runtime.*;
+import com.nudeu.until.ImageMap;
 
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameFrame extends Frame {
+
     private Background background = new Background();
+    private MyPlane myPlane = new MyPlane();
+    public final CopyOnWriteArrayList<MyBullet> myBulletList = new CopyOnWriteArrayList<>();
+    public final List<EnePlane> enePlanes = new CopyOnWriteArrayList<>();
+    public final List<EneBullet> eneBullets = new CopyOnWriteArrayList<>();
     @Override
     public void paint(Graphics g) {
         background.draw(g);
+        myPlane.draw(g);
+        for (MyBullet myBullet : myBulletList) {
+            myBullet.draw(g);
+        }
+        for (EnePlane enePlane : enePlanes) {
+            enePlane.draw(g);
+        }
+        for (EneBullet eneBullet : eneBullets) {
+            eneBullet.draw(g);
+        }
+
+        g.setColor(Color.RED);
+        g.drawString("" + eneBullets.size(),100,100);
     }
     public void init(){
         //设置尺寸
@@ -41,6 +64,25 @@ public class GameFrame extends Frame {
                 }
             }
         }.start();
+        //设置监听器
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                myPlane.keyPressed(e);
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                myPlane.keyReleased(e);
+            }
+        });
+
+        enePlanes.add(new EnePlane(300,30, ImageMap.getImage("ep01")));
+        enePlanes.add(new EnePlane(50,30, ImageMap.getImage("ep01")));
+        enePlanes.add(new EnePlane(300,-30, ImageMap.getImage("ep01")));
+        enePlanes.add(new EnePlane(50,60, ImageMap.getImage("ep01")));
+
+
         //设置可显示
         setVisible(true);
     }

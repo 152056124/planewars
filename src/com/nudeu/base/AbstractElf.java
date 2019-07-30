@@ -1,5 +1,7 @@
 package com.nudeu.base;
 
+import java.awt.*;
+
 public abstract class AbstractElf {
     private int x; //坐标x
     private int y; //坐标y
@@ -26,5 +28,8 @@ public abstract class AbstractElf {
     }
 
     public AbstractElf() {
+    }
+    public Rectangle getRectangle(){
+        return null;
     }
 }
