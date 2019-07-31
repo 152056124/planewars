@@ -13,9 +13,15 @@ public class ImageMap {
        //敌方飞机
        imageHashMap.put("ep01",ImageUntil.getImage("com\\nudeu\\image\\eneplane\\ep_1.png"));
        //我方子弹
-       imageHashMap.put("mb01",ImageUntil.getImage("com\\nudeu\\image\\mybullet\\myb_1.png"));
+       imageHashMap.put("mb01",ImageUntil.getImage("com\\nudeu\\image\\mybullet\\mb_1.png"));
        //敌方子弹
        imageHashMap.put("eb01",ImageUntil.getImage("com\\nudeu\\image\\enebullet\\ene_bullet.png"));
+       //道具
+       imageHashMap.put("pp01",ImageUntil.getImage("com\\nudeu\\image\\prop\\pp01.png"));//护盾
+       imageHashMap.put("pp02",ImageUntil.getImage("com\\nudeu\\image\\prop\\pp02.png"));//加血
+       imageHashMap.put("pp03",ImageUntil.getImage("com\\nudeu\\image\\prop\\pp03.png"));//回蓝、魔法阵
+       imageHashMap.put("pp04",ImageUntil.getImage("com\\nudeu\\image\\prop\\pp04.png"));//加强子弹
+
 
    }
    public static Image getImage(String key){

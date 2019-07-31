@@ -9,7 +9,6 @@ import com.nudeu.until.DateStore;
 import com.nudeu.until.ImageMap;
 
 import java.awt.*;
-import java.util.List;
 
 public class EneBullet extends AbstractElf implements Moveable, Drawable {
     private Image image ;
@@ -51,7 +50,14 @@ public class EneBullet extends AbstractElf implements Moveable, Drawable {
     public void collisionCheck(MyPlane myPlane){
         GameFrame frame = DateStore.get("gameFrame");
         if (myPlane.getRectangle().intersects(this.getRectangle())){
+                frame.eneBullets.remove(this);
+                frame.myPlane.setBloodVolue(frame.myPlane.getBloodVolue() - 1);
+                //FrameConstant.BLOOD_VOLUE --;
+            if (frame.myPlane.getBloodVolue() <= 0){
                 frame.gameOver = false;
             }
+        }
+
+
     }
 }

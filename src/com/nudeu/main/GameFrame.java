@@ -2,6 +2,7 @@ package com.nudeu.main;
 
 import com.nudeu.constant.FrameConstant;
 import com.nudeu.runtime.*;
+import com.nudeu.until.DateStore;
 import com.nudeu.until.ImageMap;
 
 import java.awt.*;
@@ -15,10 +16,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class GameFrame extends Frame {
 
     private Background background = new Background();
-    private MyPlane myPlane = new MyPlane();
+    public final MyPlane myPlane = new MyPlane();
     public final CopyOnWriteArrayList<MyBullet> myBulletList = new CopyOnWriteArrayList<>();
     public final List<EnePlane> enePlanes = new CopyOnWriteArrayList<>();
     public final List<EneBullet> eneBullets = new CopyOnWriteArrayList<>();
+    public final List<Prop> props = new CopyOnWriteArrayList<>();
+    private Prop prop = new Prop();
     public boolean gameOver = true;
     @Override
     public void paint(Graphics g) {
@@ -40,6 +43,16 @@ public class GameFrame extends Frame {
             for (EneBullet eneBullet : eneBullets) {
                 eneBullet.collisionCheck(myPlane);
             }
+            for (EnePlane enePlane : enePlanes) {
+                enePlane.collisionCheck(myPlane);
+            }
+            prop.add();
+            for (Prop prop : props) {
+                prop.draw(g);
+            }
+            for (Prop prop : props) {
+                prop.collisionCheck(myPlane);
+            }
 
 //        g.setColor(Color.RED);
 //        g.drawString("" + eneBullets.size(),100,100);
@@ -49,6 +62,7 @@ public class GameFrame extends Frame {
             g.setFont(font);
             g.drawString("GAME"+" "+"OVER" ,FrameConstant.WIDTH / 2 - 60,300);
         }
+        g.drawString("" + myPlane.getBloodVolue(),100,100);
 
     }
     public void init(){
@@ -98,8 +112,7 @@ public class GameFrame extends Frame {
         enePlanes.add(new EnePlane(50,30, ImageMap.getImage("ep01")));
         enePlanes.add(new EnePlane(300,-30, ImageMap.getImage("ep01")));
         enePlanes.add(new EnePlane(50,60, ImageMap.getImage("ep01")));
-
-
+        props.add(new Prop(350,40,ImageMap.getImage("pp01")));
         //设置可显示
         setVisible(true);
     }

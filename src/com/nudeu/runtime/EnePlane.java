@@ -9,12 +9,15 @@ import com.nudeu.until.DateStore;
 import com.nudeu.until.ImageMap;
 
 import java.awt.*;
+import java.util.List;
 import java.util.Random;
 
 public class EnePlane extends AbstractElf implements Moveable, Drawable {
     private Image image ;
     private final int speed = FrameConstant.GAME_SPEED * 3;
     private Random random = new Random();
+
+
     public EnePlane() {
         this(0,0, ImageMap.getImage("ep01"));
     }
@@ -26,9 +29,12 @@ public class EnePlane extends AbstractElf implements Moveable, Drawable {
 
     @Override
     public void draw(Graphics g) {
+
         g.drawImage(image,getX(),getY(),image.getWidth(null),image.getHeight(null),null);
         move();
+        add();
         fire();
+
     }
     public void fire(){
         GameFrame g = DateStore.get("gameFrame");
@@ -42,7 +48,7 @@ public class EnePlane extends AbstractElf implements Moveable, Drawable {
         setY(getY() + speed);
         crossBorderErase();
     }
-
+    //边缘检测回收
     public void crossBorderErase(){
         if(getY() > FrameConstant.HEIGHT) {
             GameFrame a = DateStore.get("gameFrame");
@@ -51,5 +57,25 @@ public class EnePlane extends AbstractElf implements Moveable, Drawable {
     }
     public Rectangle getRectangle() {
         return new Rectangle(getX(),getY(),image.getWidth(null),image.getHeight(null));
+    }
+    public void add(){
+        GameFrame a = DateStore.get("gameFrame");
+        int size = a.enePlanes.size();  //敌方飞机数
+        if (size < FrameConstant.ENEPLANE_COUNT){
+            //GameFrame g = DateStore.get("gameFrame");
+            a.enePlanes.add(new EnePlane(random.nextInt(FrameConstant.WIDTH - image.getWidth(null)),
+                    0, ImageMap.getImage("ep01")));
+        }
+    }
+    //攻击检测
+    public void collisionCheck(MyPlane myPlane){
+        GameFrame frame = DateStore.get("gameFrame");
+        if (myPlane.getRectangle().intersects(this.getRectangle())){
+            frame.enePlanes.remove(this);
+            frame.myPlane.setBloodVolue(frame.myPlane.getBloodVolue() - 1);
+            if (frame.myPlane.getBloodVolue() <= 0){
+                frame.gameOver = false;
+            }
+        }
     }
 }

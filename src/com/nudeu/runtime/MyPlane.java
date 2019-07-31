@@ -16,6 +16,15 @@ public class MyPlane extends AbstractElf implements Moveable, Drawable {
     private Image image ;
     private  boolean up,left,down,right;
     private boolean fire;
+    private int bloodVolue = FrameConstant.BLOOD_VOLUE;
+
+    public int getBloodVolue() {
+        return bloodVolue;
+    }
+
+    public void setBloodVolue(int bloodVolue) {
+        this.bloodVolue = bloodVolue;
+    }
 
     public MyPlane() {
         this((FrameConstant.WIDTH  - ImageMap.getImage("my01").getWidth(null)) / 2,
