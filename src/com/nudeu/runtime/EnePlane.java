@@ -9,14 +9,21 @@ import com.nudeu.until.DateStore;
 import com.nudeu.until.ImageMap;
 
 import java.awt.*;
-import java.util.List;
 import java.util.Random;
 
 public class EnePlane extends AbstractElf implements Moveable, Drawable {
     private Image image ;
     private final int speed = FrameConstant.GAME_SPEED * 3;
     private Random random = new Random();
+    private int count = 4; // 出现的敌机总数
 
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 
     public EnePlane() {
         this(0,0, ImageMap.getImage("ep01"));
@@ -65,7 +72,9 @@ public class EnePlane extends AbstractElf implements Moveable, Drawable {
             //GameFrame g = DateStore.get("gameFrame");
             a.enePlanes.add(new EnePlane(random.nextInt(FrameConstant.WIDTH - image.getWidth(null)),
                     0, ImageMap.getImage("ep01")));
+            a.enePlane.setCount(a.enePlane.getCount() + 1);//每add一架飞机，飞机总数+1
         }
+
     }
     //攻击检测
     public void collisionCheck(MyPlane myPlane){

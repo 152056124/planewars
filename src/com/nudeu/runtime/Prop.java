@@ -37,8 +37,6 @@ public class Prop extends AbstractElf implements Moveable, Drawable {
     public void draw(Graphics g) {
         g.drawImage(image,getX(),getY(),image.getWidth(null),image.getHeight(null),null);
         move();
-        System.out.println(1);
-
     }
 
     @Override

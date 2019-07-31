@@ -10,17 +10,17 @@ import com.nudeu.until.ImageMap;
 
 import java.awt.*;
 
-public class EneBullet extends AbstractElf implements Moveable, Drawable {
-    private Image image ;
-    private int speed = FrameConstant.GAME_SPEED * 5;
+public class Bsbullet extends AbstractElf implements Moveable, Drawable {
+    private Image image;
+    private int speed = FrameConstant.GAME_SPEED * 3;
 
-    public EneBullet(int x, int y, Image image) {
+    public Bsbullet(int x, int y, Image image) {
         super(x, y);
         this.image = image;
     }
 
-    public EneBullet() {
-        this(0,0, ImageMap.getImage("eb01"));
+    public Bsbullet() {
+        this(0,0, ImageMap.getImage("bb01"));
     }
 
     @Override
@@ -37,21 +37,17 @@ public class EneBullet extends AbstractElf implements Moveable, Drawable {
     public void crossBorderErase(){
         if(getY() > FrameConstant.HEIGHT) {
             GameFrame a = DateStore.get("gameFrame");
-            a.eneBullets.remove(this);
+            a.bsbullets.remove(this);
         }
     }
-
-    @Override
     public Rectangle getRectangle() {
         return new Rectangle(getX(),getY(),image.getWidth(null),image.getHeight(null));
     }
-
-    //攻击检测
     public void collisionCheck(MyPlane myPlane){
         GameFrame frame = DateStore.get("gameFrame");
         if (myPlane.getRectangle().intersects(this.getRectangle())){
-                frame.eneBullets.remove(this);
-                frame.myPlane.setBloodVolue(frame.myPlane.getBloodVolue() - 1);
+            frame.bsbullets.remove(this);
+            frame.myPlane.setBloodVolue(frame.myPlane.getBloodVolue() - 2);//boss伤害翻倍
             if (frame.myPlane.getBloodVolue() <= 0){
                 frame.gameOver = false;
             }

@@ -2,7 +2,6 @@ package com.nudeu.main;
 
 import com.nudeu.constant.FrameConstant;
 import com.nudeu.runtime.*;
-import com.nudeu.until.DateStore;
 import com.nudeu.until.ImageMap;
 
 import java.awt.*;
@@ -16,13 +15,19 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class GameFrame extends Frame {
 
     private Background background = new Background();
+
     public final MyPlane myPlane = new MyPlane();
     public final CopyOnWriteArrayList<MyBullet> myBulletList = new CopyOnWriteArrayList<>();
     public final List<EnePlane> enePlanes = new CopyOnWriteArrayList<>();
     public final List<EneBullet> eneBullets = new CopyOnWriteArrayList<>();
     public final List<Prop> props = new CopyOnWriteArrayList<>();
     private Prop prop = new Prop();
+    public final EnePlane enePlane = new EnePlane();
+    public final Boss boss = new Boss();
+    public final List<Bsbullet> bsbullets = new CopyOnWriteArrayList<>();
+
     public boolean gameOver = true;
+    public boolean bossOver = false;
     @Override
     public void paint(Graphics g) {
         background.draw(g);
@@ -53,16 +58,32 @@ public class GameFrame extends Frame {
             for (Prop prop : props) {
                 prop.collisionCheck(myPlane);
             }
+           boss.draw(g);
+            for (Bsbullet bsbullet : bsbullets) {
+                bsbullet.draw(g);
+            }
+            for (Bsbullet bsbullet : bsbullets) {
+                bsbullet.collisionCheck(myPlane);
+            }
+            boss.collisionCheck(myPlane);
+            for (MyBullet myBullet : myBulletList) {
+                myBullet.collisionCheck(boss);
+            }
 
-//        g.setColor(Color.RED);
-//        g.drawString("" + eneBullets.size(),100,100);
-        } else {
+        } else if(bossOver){
+            Font font = new Font("宋体",15,30);
+            g.setColor(Color.RED);
+            g.setFont(font);
+            g.drawString("GAME"+" "+"PASS" ,FrameConstant.WIDTH / 2 - 60,300);
+        }else {
             Font font = new Font("宋体",15,30);
             g.setColor(Color.RED);
             g.setFont(font);
             g.drawString("GAME"+" "+"OVER" ,FrameConstant.WIDTH / 2 - 60,300);
         }
-        g.drawString("" + myPlane.getBloodVolue(),100,100);
+        g.setColor(Color.RED);
+        g.drawString("" + boss.getBloodBoss(),100,100);
+        //g.drawString("" + myPlane.getBloodVolue(),100,100);
 
     }
     public void init(){
