@@ -14,7 +14,15 @@ import java.util.List;
 public class MyBullet extends AbstractElf implements Moveable, Drawable {
     private Image image ;
     private int speed = FrameConstant.GAME_SPEED * 5;
+    private int fraction = 0;//得分
 
+    public int getFraction() {
+        return fraction;
+    }
+
+    public void setFraction(int fraction) {
+        this.fraction = fraction;
+    }
     public MyBullet(int x, int y, Image image) {
         super(x, y);
         this.image = image;
@@ -48,9 +56,11 @@ public class MyBullet extends AbstractElf implements Moveable, Drawable {
     }
     //攻击检测
     public void collisionCheck(List<EnePlane> enePlanes){
+        GameFrame frame = DateStore.get("gameFrame");
         for (EnePlane enePlane : enePlanes) {
             if (enePlane.getRectangle().intersects(this.getRectangle())){
                 enePlanes.remove(enePlane);
+                frame.myBullett.setFraction(frame.myBullett.getFraction() + 1 * FrameConstant.BASE_FRACTION);
             }
         }
     }
@@ -58,10 +68,11 @@ public class MyBullet extends AbstractElf implements Moveable, Drawable {
         GameFrame frame = DateStore.get("gameFrame");
         if (boss.getRectangle().intersects(this.getRectangle())){
             frame.myBulletList.remove(this);
-            frame.boss.setBloodBoss(frame.boss.getBloodBoss() - 1);
-            if (frame.boss.getBloodBoss() <= 0){
+            frame.boss1.setBloodBoss(frame.boss1.getBloodBoss() - 1);
+            if (frame.boss1.getBloodBoss() <= 0){
                 frame.bossOver = true;
                 frame.gameOver = false;
+                frame.myBullett.setFraction(frame.myBullett.getFraction() + 1 * FrameConstant.BOSS_FRACTION);
             }
         }
     }

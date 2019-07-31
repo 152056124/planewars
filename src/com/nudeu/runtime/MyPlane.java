@@ -38,7 +38,7 @@ public class MyPlane extends AbstractElf implements Moveable, Drawable {
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(image,getX(),getY(),image.getWidth(null),image.getHeight(null),null);
+        g.drawImage(image,getX(),getY(),image.getWidth(null) / 2,image.getHeight(null) / 2,null);
         move();
     }
 

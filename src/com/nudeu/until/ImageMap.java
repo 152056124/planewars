@@ -23,6 +23,7 @@ public class ImageMap {
        //imageHashMap.put("pp04",ImageUntil.getImage("com\\nudeu\\image\\prop\\pp04.png"));//加强子弹
        //BOSS
        imageHashMap.put("ss01",ImageUntil.getImage("com\\nudeu\\image\\boss\\boss_1.png"));
+       imageHashMap.put("ss02",ImageUntil.getImage("com\\nudeu\\image\\boss\\boss_2.png"));
        //Boss子弹
        imageHashMap.put("bb01",ImageUntil.getImage("com\\nudeu\\image\\bbullet\\bb01.png"));
 

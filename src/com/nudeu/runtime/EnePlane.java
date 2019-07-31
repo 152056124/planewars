@@ -17,6 +17,7 @@ public class EnePlane extends AbstractElf implements Moveable, Drawable {
     private Random random = new Random();
     private int count = 4; // 出现的敌机总数
 
+
     public int getCount() {
         return count;
     }
@@ -37,7 +38,7 @@ public class EnePlane extends AbstractElf implements Moveable, Drawable {
     @Override
     public void draw(Graphics g) {
 
-        g.drawImage(image,getX(),getY(),image.getWidth(null),image.getHeight(null),null);
+        g.drawImage(image,getX(),getY(),image.getWidth(null) - 8,image.getHeight(null) - 8,null);
         move();
         add();
         fire();

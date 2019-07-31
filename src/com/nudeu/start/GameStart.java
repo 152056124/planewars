@@ -10,5 +10,6 @@ public class GameStart {
         DateStore.put("gameFrame",gameFrame);
         gameFrame.init();
 
+
     }
 }

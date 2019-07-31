@@ -18,12 +18,14 @@ public class GameFrame extends Frame {
 
     public final MyPlane myPlane = new MyPlane();
     public final CopyOnWriteArrayList<MyBullet> myBulletList = new CopyOnWriteArrayList<>();
+    public final MyBullet myBullett = new MyBullet();
     public final List<EnePlane> enePlanes = new CopyOnWriteArrayList<>();
     public final List<EneBullet> eneBullets = new CopyOnWriteArrayList<>();
     public final List<Prop> props = new CopyOnWriteArrayList<>();
     private Prop prop = new Prop();
     public final EnePlane enePlane = new EnePlane();
-    public final Boss boss = new Boss();
+    public final Boss boss1 = new Boss(20,30,1);
+    public final Boss boss2 = new Boss(20,30,2);
     public final List<Bsbullet> bsbullets = new CopyOnWriteArrayList<>();
 
     public boolean gameOver = true;
@@ -58,32 +60,56 @@ public class GameFrame extends Frame {
             for (Prop prop : props) {
                 prop.collisionCheck(myPlane);
             }
-           boss.draw(g);
-            for (Bsbullet bsbullet : bsbullets) {
-                bsbullet.draw(g);
+            if(enePlane.getCount() >= FrameConstant.BOSS_APPERA){
+                if(FrameConstant.BOSS_BLOOD >= 50){
+                    boss1.draw(g);
+                    for (Bsbullet bsbullet : bsbullets) {
+                        bsbullet.draw(g);
+                    }
+                    for (Bsbullet bsbullet : bsbullets) {
+                        bsbullet.collisionCheck(myPlane);
+                    }
+                    boss1.collisionCheck();
+                    for (MyBullet myBullet : myBulletList) {
+                        myBullet.collisionCheck(boss1);
+                    }
+                }
+
+                if (FrameConstant.BOSS_BLOOD <= 50){
+                    boss2.draw(g);
+                    for (Bsbullet bsbullet : bsbullets) {
+                        bsbullet.draw(g);
+                    }
+                    for (Bsbullet bsbullet : bsbullets) {
+                        bsbullet.collisionCheck(myPlane);
+                    }
+                    boss2.collisionCheck();
+                    for (MyBullet myBullet : myBulletList) {
+                        myBullet.collisionCheck(boss2);
+                    }
+                }
             }
-            for (Bsbullet bsbullet : bsbullets) {
-                bsbullet.collisionCheck(myPlane);
-            }
-            boss.collisionCheck(myPlane);
-            for (MyBullet myBullet : myBulletList) {
-                myBullet.collisionCheck(boss);
-            }
+
+            g.setColor(Color.RED);
+
+            g.drawString("BOSS血量： " + boss1.getBloodBoss(),100,100);
+            g.drawString("HP： " + myPlane.getBloodVolue(),100,150);
+            g.drawString("得分： " + myBullett.getFraction(),100,200);
+            g.drawString("敌机总数" + enePlane.getCount(),100,50);
 
         } else if(bossOver){
             Font font = new Font("宋体",15,30);
             g.setColor(Color.RED);
             g.setFont(font);
             g.drawString("GAME"+" "+"PASS" ,FrameConstant.WIDTH / 2 - 60,300);
+            g.drawString("最终得分： " + myBullett.getFraction(),FrameConstant.WIDTH / 2 - 60,350);
         }else {
             Font font = new Font("宋体",15,30);
             g.setColor(Color.RED);
             g.setFont(font);
             g.drawString("GAME"+" "+"OVER" ,FrameConstant.WIDTH / 2 - 60,300);
         }
-        g.setColor(Color.RED);
-        g.drawString("" + boss.getBloodBoss(),100,100);
-        //g.drawString("" + myPlane.getBloodVolue(),100,100);
+
 
     }
     public void init(){
