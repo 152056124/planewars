@@ -7,7 +7,7 @@ public class ImageMap {
    private static final HashMap<String, Image> imageHashMap = new HashMap<>();
    static {
        //背景
-       imageHashMap.put("bg01",ImageUntil.getImage("com\\nudeu\\image\\bg\\bg1.png"));
+       imageHashMap.put("bg01",ImageUntil.getImage("com\\nudeu\\image\\bg\\bg1.jpg"));
        //我方飞机
        imageHashMap.put("my01",ImageUntil.getImage("com\\nudeu\\image\\myplane\\my_1.png"));
        //敌方飞机

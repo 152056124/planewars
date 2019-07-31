@@ -58,6 +58,8 @@ public class GameFrame extends Frame {
         setLocationRelativeTo(null);
         //关闭输入法
         enableInputMethods(false);
+        //关闭放大窗口
+        setResizable(false);
         //设置关闭监听器
         addWindowListener(new WindowAdapter() {
             @Override
