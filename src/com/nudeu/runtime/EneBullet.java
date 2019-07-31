@@ -9,6 +9,7 @@ import com.nudeu.until.DateStore;
 import com.nudeu.until.ImageMap;
 
 import java.awt.*;
+import java.util.List;
 
 public class EneBullet extends AbstractElf implements Moveable, Drawable {
     private Image image ;
@@ -39,5 +40,18 @@ public class EneBullet extends AbstractElf implements Moveable, Drawable {
             GameFrame a = DateStore.get("gameFrame");
             a.eneBullets.remove(this);
         }
+    }
+
+    @Override
+    public Rectangle getRectangle() {
+        return new Rectangle(getX(),getY(),image.getWidth(null),image.getHeight(null));
+    }
+
+    //攻击检测
+    public void collisionCheck(MyPlane myPlane){
+        GameFrame frame = DateStore.get("gameFrame");
+        if (myPlane.getRectangle().intersects(this.getRectangle())){
+                frame.gameOver = false;
+            }
     }
 }

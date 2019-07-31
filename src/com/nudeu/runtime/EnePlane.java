@@ -49,4 +49,7 @@ public class EnePlane extends AbstractElf implements Moveable, Drawable {
             a.enePlanes.remove(this);
         }
     }
+    public Rectangle getRectangle() {
+        return new Rectangle(getX(),getY(),image.getWidth(null),image.getHeight(null));
+    }
 }

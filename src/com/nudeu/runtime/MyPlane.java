@@ -108,5 +108,7 @@ public class MyPlane extends AbstractElf implements Moveable, Drawable {
             setY(FrameConstant.HEIGHT - image.getHeight(null));
         }
     }
-
+    public Rectangle getRectangle() {
+        return new Rectangle(getX(),getY(),image.getWidth(null),image.getHeight(null));
+    }
 }

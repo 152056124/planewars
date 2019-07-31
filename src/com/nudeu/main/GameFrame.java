@@ -19,22 +19,37 @@ public class GameFrame extends Frame {
     public final CopyOnWriteArrayList<MyBullet> myBulletList = new CopyOnWriteArrayList<>();
     public final List<EnePlane> enePlanes = new CopyOnWriteArrayList<>();
     public final List<EneBullet> eneBullets = new CopyOnWriteArrayList<>();
+    public boolean gameOver = true;
     @Override
     public void paint(Graphics g) {
         background.draw(g);
-        myPlane.draw(g);
-        for (MyBullet myBullet : myBulletList) {
-            myBullet.draw(g);
-        }
-        for (EnePlane enePlane : enePlanes) {
-            enePlane.draw(g);
-        }
-        for (EneBullet eneBullet : eneBullets) {
-            eneBullet.draw(g);
+        if(gameOver){
+            myPlane.draw(g);
+            for (MyBullet myBullet : myBulletList) {
+                myBullet.draw(g);
+            }
+            for (EnePlane enePlane : enePlanes) {
+                enePlane.draw(g);
+            }
+            for (EneBullet eneBullet : eneBullets) {
+                eneBullet.draw(g);
+            }
+            for (MyBullet myBullet : myBulletList) {
+                myBullet.collisionCheck(enePlanes);
+            }
+            for (EneBullet eneBullet : eneBullets) {
+                eneBullet.collisionCheck(myPlane);
+            }
+
+//        g.setColor(Color.RED);
+//        g.drawString("" + eneBullets.size(),100,100);
+        } else {
+            Font font = new Font("宋体",15,30);
+            g.setColor(Color.RED);
+            g.setFont(font);
+            g.drawString("GAME"+" "+"OVER" ,FrameConstant.WIDTH / 2 - 60,300);
         }
 
-        g.setColor(Color.RED);
-        g.drawString("" + eneBullets.size(),100,100);
     }
     public void init(){
         //设置尺寸

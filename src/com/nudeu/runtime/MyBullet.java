@@ -9,6 +9,7 @@ import com.nudeu.until.DateStore;
 import com.nudeu.until.ImageMap;
 
 import java.awt.*;
+import java.util.List;
 
 public class MyBullet extends AbstractElf implements Moveable, Drawable {
     private Image image ;
@@ -40,6 +41,17 @@ public class MyBullet extends AbstractElf implements Moveable, Drawable {
         if(getY() < 30 - image.getHeight(null)) {
             GameFrame a = DateStore.get("gameFrame");
             a.myBulletList.remove(this);
+        }
+    }
+    public Rectangle getRectangle() {
+        return new Rectangle(getX(),getY(),image.getWidth(null),image.getHeight(null));
+    }
+    //攻击检测
+    public void collisionCheck(List<EnePlane> enePlanes){
+        for (EnePlane enePlane : enePlanes) {
+            if (enePlane.getRectangle().intersects(this.getRectangle())){
+                enePlanes.remove(enePlane);
+            }
         }
     }
 }
