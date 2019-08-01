@@ -17,6 +17,7 @@ public class MyPlane extends AbstractElf implements Moveable, Drawable {
     private  boolean up,left,down,right;
     private boolean fire;
     private int bloodVolue = FrameConstant.BLOOD_VOLUE;
+    private int speed = FrameConstant.GAME_SPEED * 5;
 
     public int getBloodVolue() {
         return bloodVolue;
@@ -89,16 +90,16 @@ public class MyPlane extends AbstractElf implements Moveable, Drawable {
     @Override
     public void move() {
         if (up){
-            setY(getY() - FrameConstant.GAME_SPEED * 3);
+            setY(getY() - speed);
         }
         if (left){
-            setX(getX() - FrameConstant.GAME_SPEED * 3);
+            setX(getX() - speed);
         }
         if (down){
-            setY(getY() + FrameConstant.GAME_SPEED * 3);
+            setY(getY() + speed);
         }
         if (right){
-            setX(getX() + FrameConstant.GAME_SPEED * 3);
+            setX(getX() + speed);
         }
         borderCheck();
     }

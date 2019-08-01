@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class Boss extends AbstractElf implements  Drawable {
-    private final static Map<String,Image> images = new HashMap<>();
+    public final static Map<String,Image> images = new HashMap<>();
     static {
         images.put("ss1",ImageMap.getImage("ss01"));
         images.put("ss2",ImageMap.getImage("ss02"));
@@ -28,6 +28,7 @@ public class Boss extends AbstractElf implements  Drawable {
     private boolean up = true;
     private int bloodBoss = FrameConstant.BOSS_BLOOD;
     private boolean isOne = true;
+
 
     public boolean isOne() {
         return isOne;
@@ -53,14 +54,16 @@ public class Boss extends AbstractElf implements  Drawable {
     public Boss() {
     }
 
+
     @Override
     public void draw(Graphics g) {
-            move(isOne);
-            fire(isOne);
-            g.drawImage(image, getX(), getY(), image.getWidth(null), image.getHeight(null), null);
-
-
-
+        GameFrame frame = DateStore.get("gameFrame");
+        move(isOne);
+        fire(isOne);
+        g.drawImage(image, getX(), getY(), image.getWidth(null), image.getHeight(null), null);
+        g.drawRoundRect(10,30,FrameConstant.BOSS_BLOOD * 3,20,5,5);
+        g.setColor(Color.RED);
+        g.fillRoundRect(10,30,frame.boss1.getBloodBoss() * 3,20,5,5);
     }
 
     public void fire(boolean isOne) {
@@ -155,7 +158,8 @@ public class Boss extends AbstractElf implements  Drawable {
                     }
                 }.start();
                 if (frame.myPlane.getBloodVolue() <= 0) {
-                    frame.gameOver = false;
+                    //frame.gameOver = false;
+
                 }
             }
         }else {
@@ -176,7 +180,8 @@ public class Boss extends AbstractElf implements  Drawable {
                     }
                 }.start();
                 if (frame.myPlane.getBloodVolue() <= 0) {
-                    frame.gameOver = false;
+                    //frame.gameOver = false;
+                    images.remove("ss2");
                 }
             }
         }

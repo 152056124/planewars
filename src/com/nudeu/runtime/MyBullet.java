@@ -70,10 +70,27 @@ public class MyBullet extends AbstractElf implements Moveable, Drawable {
             frame.myBulletList.remove(this);
             frame.boss1.setBloodBoss(frame.boss1.getBloodBoss() - 1);
             if (frame.boss1.getBloodBoss() <= 0){
-                frame.bossOver = true;
-                frame.gameOver = false;
+                //frame.bossOver = true;
+                //frame.gameOver = false;
+                Boss.images.remove("ss2");
                 frame.myBullett.setFraction(frame.myBullett.getFraction() + 1 * FrameConstant.BOSS_FRACTION);
             }
         }
+    }
+    public void collisionCheck(BossA bossa){
+        GameFrame frame = DateStore.get("gameFrame");
+        if (frame.bossA.bossimages.size() != 0){
+            if (bossa.getRectangle().intersects(this.getRectangle())){
+                frame.myBulletList.remove(this);
+                frame.bossA.setBossAblood(frame.bossA.getBossAblood() - 1);
+                if (frame.bossA.getBossAblood() <= 0){
+                    frame.bossOver = true;
+                    frame.bossA.bossimages.removeAll(frame.bossA.bossimages);
+                    //frame.gameOver = false;
+                    frame.myBullett.setFraction(frame.myBullett.getFraction() + 1 * FrameConstant.BOSS_FRACTION);
+                }
+            }
+        }
+
     }
 }

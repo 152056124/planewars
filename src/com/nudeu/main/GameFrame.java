@@ -28,6 +28,9 @@ public class GameFrame extends Frame {
     public final Boss boss2 = new Boss(50,50,Boss.get("ss2"));
     public final List<Bsbullet> bsbullets = new CopyOnWriteArrayList<>();
     public final List<Bsbullet2> bsbullet2s = new CopyOnWriteArrayList<>();
+    public final List<Abossbullet> abossbullets = new CopyOnWriteArrayList<>();
+    public final BossA bossA = new BossA();
+    public final Art art = new Art();
 
     public boolean gameOver = true;
     public boolean bossOver = false;
@@ -61,7 +64,8 @@ public class GameFrame extends Frame {
             for (Prop prop : props) {
                 prop.collisionCheck(myPlane);
             }
-            if(enePlane.getCount() >= FrameConstant.BOSS_APPERA){
+
+            if(enePlane.getCount() >= FrameConstant.BOSS_APPERA && boss1.getBloodBoss() > 0){
                 if(boss1.getBloodBoss() >= FrameConstant.BOSS_TWO){
                     boss1.draw(g);
                     boss1.setOne(true);
@@ -91,6 +95,21 @@ public class GameFrame extends Frame {
                     for (Bsbullet2 bsbullet2 : bsbullet2s) {
                         bsbullet2.collisionCheck(myPlane);
                     }
+                }
+            if(boss1.getBloodBoss() <= 0){
+                bossA.draw(g);
+                for (Abossbullet abossbullet1 : abossbullets) {
+                    abossbullet1.draw(g);
+                }
+                for (Abossbullet abossbullet1 : abossbullets) {
+                    abossbullet1.collisionCheck(myPlane);
+                }
+                for (MyBullet myBullet : myBulletList) {
+                    myBullet.collisionCheck(bossA);
+                }
+            }
+            if (bossA.getBossAblood() <= 0){
+                art.draw(g);
             }
 
             g.setColor(Color.RED);
@@ -99,6 +118,7 @@ public class GameFrame extends Frame {
             g.drawString("HP： " + myPlane.getBloodVolue(),100,150);
             g.drawString("得分： " + myBullett.getFraction(),100,200);
             g.drawString("敌机总数" + enePlane.getCount(),100,50);
+            g.drawString("三boss" + bossA.getBossAblood(),100,250);
 
         } else if(bossOver){
             Font font = new Font("宋体",15,30);
@@ -158,10 +178,10 @@ public class GameFrame extends Frame {
             }
         });
 
-        enePlanes.add(new EnePlane(300,30, ImageMap.getImage("ep01")));
-        enePlanes.add(new EnePlane(50,30, ImageMap.getImage("ep01")));
-        enePlanes.add(new EnePlane(300,-30, ImageMap.getImage("ep01")));
-        enePlanes.add(new EnePlane(50,60, ImageMap.getImage("ep01")));
+        enePlanes.add(new EnePlane(300,30, 1));
+        enePlanes.add(new EnePlane(50,30, 1));
+        enePlanes.add(new EnePlane(300,-30, 2));
+        enePlanes.add(new EnePlane(50,60, 4));
         props.add(new Prop(350,40,ImageMap.getImage("pp01")));
         //设置可显示
         setVisible(true);

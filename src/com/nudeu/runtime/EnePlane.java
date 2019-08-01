@@ -13,8 +13,11 @@ import java.util.Random;
 
 public class EnePlane extends AbstractElf implements Moveable, Drawable {
     private Image image ;
+    private Image image2 ;
+    private Image image3 ;
     private final int speed = FrameConstant.GAME_SPEED * 3;
     private Random random = new Random();
+    private int type;
     private int count = 4; // 出现的敌机总数
 
 
@@ -27,22 +30,30 @@ public class EnePlane extends AbstractElf implements Moveable, Drawable {
     }
 
     public EnePlane() {
-        this(0,0, ImageMap.getImage("ep01"));
+        this(0,0, 1);
     }
 
-    public EnePlane(int x, int y, Image image) {
+    public EnePlane(int x, int y, int type) {
         super(x, y);
-        this.image = image;
+        this.type = type;
+        this.image = ImageMap.getImage("ep01");
+        this.image2 = ImageMap.getImage("ep02");
+        this.image3 = ImageMap.getImage("ep03");
     }
 
     @Override
     public void draw(Graphics g) {
-
-        g.drawImage(image,getX(),getY(),image.getWidth(null) - 8,image.getHeight(null) - 8,null);
         move();
         add();
         fire();
+        if (type == 1){
+            g.drawImage(image3,getX(),getY(),image3.getWidth(null) - 8,image3.getHeight(null) - 8,null);
+        }else if (type == 2){
+            g.drawImage(image2,getX(),getY(),image2.getWidth(null) - 8,image2.getHeight(null) - 8,null);
+        }else {
+            g.drawImage(image,getX(),getY(),image.getWidth(null) - 8,image.getHeight(null) - 8,null);
 
+        }
     }
     public void fire(){
         GameFrame g = DateStore.get("gameFrame");
@@ -67,12 +78,12 @@ public class EnePlane extends AbstractElf implements Moveable, Drawable {
         return new Rectangle(getX(),getY(),image.getWidth(null),image.getHeight(null));
     }
     public void add(){
+        Random random = new Random();
         GameFrame a = DateStore.get("gameFrame");
         int size = a.enePlanes.size();  //敌方飞机数
         if (size < FrameConstant.ENEPLANE_COUNT){
-            //GameFrame g = DateStore.get("gameFrame");
             a.enePlanes.add(new EnePlane(random.nextInt(FrameConstant.WIDTH - image.getWidth(null)),
-                    0, ImageMap.getImage("ep01")));
+                    0,random.nextInt(4)));
             a.enePlane.setCount(a.enePlane.getCount() + 1);//每add一架飞机，飞机总数+1
         }
 
