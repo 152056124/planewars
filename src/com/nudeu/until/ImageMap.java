@@ -26,7 +26,7 @@ public class ImageMap {
        imageHashMap.put("ss02",ImageUntil.getImage("com\\nudeu\\image\\boss\\boss_2.png"));
        //Boss子弹
        imageHashMap.put("bb01",ImageUntil.getImage("com\\nudeu\\image\\bbullet\\bb01.png"));
-
+       imageHashMap.put("bb02",ImageUntil.getImage("com\\nudeu\\image\\bbullet\\bb02.png"));//闪电
 
    }
    public static Image getImage(String key){

@@ -24,9 +24,10 @@ public class GameFrame extends Frame {
     public final List<Prop> props = new CopyOnWriteArrayList<>();
     private Prop prop = new Prop();
     public final EnePlane enePlane = new EnePlane();
-    public final Boss boss1 = new Boss(20,30,1);
-    public final Boss boss2 = new Boss(20,30,2);
+    public final Boss boss1 = new Boss(10,30,Boss.get("ss1"));
+    public final Boss boss2 = new Boss(50,50,Boss.get("ss2"));
     public final List<Bsbullet> bsbullets = new CopyOnWriteArrayList<>();
+    public final List<Bsbullet2> bsbullet2s = new CopyOnWriteArrayList<>();
 
     public boolean gameOver = true;
     public boolean bossOver = false;
@@ -61,33 +62,35 @@ public class GameFrame extends Frame {
                 prop.collisionCheck(myPlane);
             }
             if(enePlane.getCount() >= FrameConstant.BOSS_APPERA){
-                if(FrameConstant.BOSS_BLOOD >= 50){
+                if(boss1.getBloodBoss() >= FrameConstant.BOSS_TWO){
                     boss1.draw(g);
-                    for (Bsbullet bsbullet : bsbullets) {
-                        bsbullet.draw(g);
-                    }
-                    for (Bsbullet bsbullet : bsbullets) {
-                        bsbullet.collisionCheck(myPlane);
-                    }
-                    boss1.collisionCheck();
+                    boss1.setOne(true);
                     for (MyBullet myBullet : myBulletList) {
                         myBullet.collisionCheck(boss1);
                     }
-                }
-
-                if (FrameConstant.BOSS_BLOOD <= 50){
+                    boss1.collisionCheck();
+                }else {
                     boss2.draw(g);
+                    boss2.setOne(false);
+                    for (MyBullet myBullet : myBulletList) {
+                        myBullet.collisionCheck(boss2);
+                    }
+                    boss2.collisionCheck();
+                }
                     for (Bsbullet bsbullet : bsbullets) {
                         bsbullet.draw(g);
                     }
                     for (Bsbullet bsbullet : bsbullets) {
                         bsbullet.collisionCheck(myPlane);
                     }
-                    boss2.collisionCheck();
-                    for (MyBullet myBullet : myBulletList) {
-                        myBullet.collisionCheck(boss2);
+
+
+                    for (Bsbullet2 bsbullet2 : bsbullet2s) {
+                        bsbullet2.draw(g);
                     }
-                }
+                    for (Bsbullet2 bsbullet2 : bsbullet2s) {
+                        bsbullet2.collisionCheck(myPlane);
+                    }
             }
 
             g.setColor(Color.RED);

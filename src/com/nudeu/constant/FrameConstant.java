@@ -13,5 +13,6 @@ public class FrameConstant {
     public static final int BASE_FRACTION = 1; //基础得分
     public static final int BOSS_FRACTION = 100; //boss得分
     public static final int BOSS_APPERA = 10; //boss出现
+    public static final int BOSS_TWO = 50; //boss血量低于这个值，进入第二阶段
 
 }
