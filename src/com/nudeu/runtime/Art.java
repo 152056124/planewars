@@ -19,19 +19,21 @@ public class Art extends AbstractElf implements Drawable {
         }
     }
     private int index;
+    private int countOver = 0;
     @Override
     public void draw(Graphics g) {
         GameFrame frame = DateStore.get("gameFrame");
-        if (frame.bossA.bossimages.size() == 0){
-            g.drawImage(atrImages.get(index++ ),
-                    FrameConstant.WIDTH / 2 - ImageMap.getImage("sa01").getWidth(null) / 2,
-                    100,ImageMap.getImage("sa01").getWidth(null),
-                    ImageMap.getImage("sa01").getHeight(null),null);
-            if (index >= 9){
-                index = 0;
-            }
+                    while (countOver < 5 ){
+                        g.drawImage(atrImages.get(index++ ),
+                                FrameConstant.WIDTH / 2 - ImageMap.getImage("sa01").getWidth(null) / 2,
+                                100,ImageMap.getImage("sa01").getWidth(null),
+                                ImageMap.getImage("sa01").getHeight(null),null);
+
+                        if (index >= 9){
+                            index = 0;
+                            countOver++;
+                        }
+                        frame.gameOver = false;
+                    }
         }
-
     }
-
-}
